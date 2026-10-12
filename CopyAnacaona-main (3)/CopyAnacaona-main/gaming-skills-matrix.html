@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Skills Transfer Matrix — Anacaona Women in Tech</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #5B7FDE;
+    --violet: #8B5FCF;
+    --pink: #D45FAA;
+    --rose: #E87BB0;
+    --dark: #0F0B1A;
+    --mid: #1C1530;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.10);
+    --text: #F0ECF8;
+    --muted: rgba(240,236,248,0.55);
+    --grad: linear-gradient(135deg, #5B7FDE 0%, #8B5FCF 50%, #D45FAA 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 20%, rgba(91,127,222,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 85% 75%, rgba(212,95,170,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(139,95,207,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  .lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15,11,26,0.75);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-back {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--text); }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 400;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 110px 28px 60px;
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 14px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 span {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat { text-align: left; }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .app {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 980px;
+    margin: 0 auto;
+    min-height: 70vh;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 53px;
+    height: calc(100vh - 53px);
+    overflow-y: auto;
+  }
+
+  .sidebar-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--violet);
+    padding: 0 24px;
+    margin-bottom: 12px;
+  }
+
+  .skill-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 13px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+  }
+
+  .skill-btn:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .skill-btn.active {
+    color: var(--text);
+    background: rgba(139,95,207,0.08);
+    border-left-color: var(--violet);
+  }
+
+  .skill-icon { font-size: 17px; width: 22px; text-align: center; flex-shrink: 0; }
+  .skill-name { line-height: 1.3; }
+
+  /* ── MAIN CONTENT ── */
+  .main { padding: 36px 40px; overflow-y: auto; }
+
+  .content-area { display: none; animation: fadeIn 0.2s ease; }
+  .content-area.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SKILL HEADER ── */
+  .skill-header {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-emoji-large { font-size: 44px; line-height: 1; flex-shrink: 0; }
+
+  .skill-header-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .skill-header-text p { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 560px; }
+
+  .tools-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+
+  .tool-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    background: rgba(139,95,207,0.1);
+    border: 1px solid rgba(139,95,207,0.25);
+    border-radius: 12px;
+    color: rgba(176,138,255,0.9);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SECTORS ── */
+  .sectors-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 16px;
+  }
+
+  .sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .sector-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sector-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--grad);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .sector-card:hover {
+    border-color: rgba(139,95,207,0.4);
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-2px);
+  }
+
+  .sector-card:hover::before { opacity: 1; }
+
+  .sector-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .sector-icon { font-size: 20px; }
+
+  .sector-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .demand-badge {
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .demand-high { background: rgba(91,127,222,0.15); color: #7FAAFF; border: 1px solid rgba(91,127,222,0.3); }
+  .demand-medium { background: rgba(212,95,170,0.12); color: #FF8FCC; border: 1px solid rgba(212,95,170,0.28); }
+  .demand-emerging { background: rgba(139,95,207,0.15); color: #B08AFF; border: 1px solid rgba(139,95,207,0.3); }
+
+  .sector-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+
+  .translation-box {
+    background: rgba(139,95,207,0.06);
+    border: 1px solid rgba(139,95,207,0.15);
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .translation-label {
+    font-size: 9px;
+    color: var(--violet);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+
+  .translation-pair {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+
+  .gaming-term { color: var(--muted); font-style: italic; }
+  .arrow { color: var(--pink); }
+  .industry-term { color: rgba(232,123,176,0.9); font-weight: 500; }
+
+  /* ── CV TIP ── */
+  .cv-tip-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .cv-tip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--pink);
+    border-radius: 0 10px 10px 0;
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+
+  .cv-tip-before, .cv-tip-after {
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    line-height: 1.6;
+  }
+
+  .cv-tip-before { color: var(--muted); margin-bottom: 10px; }
+  .cv-tip-after { color: var(--text); }
+
+  .cv-tip-before span:first-child {
+    font-size: 9px;
+    color: rgba(212,95,170,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .cv-tip-after span:first-child {
+    font-size: 9px;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  /* ── WELCOME ── */
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    color: var(--muted);
+  }
+
+  .welcome-icon { font-size: 44px; margin-bottom: 16px; opacity: 0.3; }
+
+  .welcome h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .welcome p { font-size: 14px; max-width: 300px; line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 36px 28px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+    line-height: 1.8;
+  }
+
+  .page-footer strong {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 680px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    .sidebar-label { display: none; }
+    .skill-btn {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 14px;
+      gap: 4px;
+      border-left: none;
+      border-bottom: 2px solid transparent;
+      min-width: 80px;
+    }
+    .skill-btn.active { border-left-color: transparent; border-bottom-color: var(--violet); }
+    .skill-name { font-size: 10px; text-align: center; }
+    .main { padding: 20px; }
+    .sectors-grid { grid-template-columns: 1fr; }
+    .hero { padding: 90px 20px 40px; }
+    .stats-row { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<div class="lang-bar">
+  <a href="index.html" class="nav-back">← Back to Anacaona</a>
+  <span class="nav-brand">Anacaona Women in Tech</span>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="eyebrow">Resource — Gaming Talent Pipeline</div>
+  <h1>Gaming Skills<br><span>Transfer Matrix</span></h1>
+  <p class="hero-sub">What game developers actually know — and how to translate that expertise into any tech sector's language. A resource for displaced talent and the companies ready to hire them.</p>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-number">44K+</div>
+      <div class="stat-label">Jobs cut since 2022</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">48%</div>
+      <div class="stat-label">Still seeking work</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Core skill clusters</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">20+</div>
+      <div class="stat-label">Destination sectors</div>
+    </div>
+  </div>
+</div>
+
+<!-- Matrix App -->
+<div class="app">
+  <nav class="sidebar">
+    <div class="sidebar-label">Skill Cluster</div>
+    <button class="skill-btn" onclick="showSkill('perf')" id="btn-perf">
+      <span class="skill-icon">⚡</span><span class="skill-name">High-Performance Engineering</span>
+    </button>
+    <button class="skill-btn" onclick="showSkill('graphics')" id="btn-graphics">
+      <span class="skill-icon">🎨</span><span class="skill-name">Graphics & Visual Computing</span>
+    </button>
+    <button class="skill-btn" onclick="showSkill('physics')" id="btn-physics">
+      <span class="skill-icon">🔬</span><span class="skill-name">Physics & Simulation</span>
+    </button>
+    <button class="skill-btn" onclick="showSkill('ai')" id="btn-ai">
+      <span class="skill-icon">🧠</span><span class="skill-name">AI & Behavior Systems</span>
+    </button>
+    <button class="skill-btn" onclick="showSkill('systems')" id="btn-systems">
+      <span class="skill-icon">⚙️</span><span class="skill-name">Systems & Economy Design</span>
+    </button>
+    <button class="skill-btn" onclick="showSkill('tools')" id="btn-tools">
+      <span class="skill-icon">🛠️</span><span class="skill-name">Tools & Pipeline Engineering</span>
+    </button>
+    <button class="skill-btn" onclick="showSkill('qa')" id="btn-qa">
+      <span class="skill-icon">🔍</span><span class="skill-name">QA & Testing</span>
+    </button>
+    <button class="skill-btn" onclick="showSkill('prod')" id="btn-prod">
+      <span class="skill-icon">🗂️</span><span class="skill-name">Production & Leadership</span>
+    </button>
+  </nav>
+
+  <main class="main">
+
+    <div id="welcome" class="welcome">
+      <div class="welcome-icon">🎮</div>
+      <h3>Select a skill cluster</h3>
+      <p>Explore how each gaming discipline maps to high-demand roles across tech, industry, and science.</p>
+    </div>
+
+    <!-- HIGH-PERFORMANCE -->
+    <div id="content-perf" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">⚡</div>
+        <div class="skill-header-text">
+          <h2>High-Performance Engineering</h2>
+          <p>Game devs write some of the most demanding real-time software on the planet. 60fps at 4K means every frame has 16ms to render everything. That discipline applies anywhere latency, throughput, or resource constraints are non-negotiable.</p>
+          <div class="tools-row">
+            <span class="tool-tag">C++</span><span class="tool-tag">Rust</span><span class="tool-tag">multithreading</span><span class="tool-tag">SIMD</span><span class="tool-tag">memory profiling</span><span class="tool-tag">lock-free algorithms</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">💹</span><span class="sector-name">High-Frequency Trading</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Fintech firms compete on microseconds. Game dev expertise in cache optimization, lock-free data structures, and real-time loops is a direct match.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Frame budget management</span><span class="arrow">→</span><span class="industry-term">Latency SLA engineering</span></div>
+            <div class="translation-pair"><span class="gaming-term">Tick rate optimization</span><span class="arrow">→</span><span class="industry-term">Order book throughput</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🏥</span><span class="sector-name">Medical Software</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Real-time patient monitoring, surgical robotics, and imaging systems require the same hard real-time guarantees as game engines — with lives on the line.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Game loop reliability</span><span class="arrow">→</span><span class="industry-term">Safety-critical real-time systems</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🚗</span><span class="sector-name">Automotive / Embedded</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">ADAS, infotainment, and EV battery management systems run on constrained hardware at deterministic timing — the same world as console development.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Console hardware optimization</span><span class="arrow">→</span><span class="industry-term">Embedded systems / AUTOSAR</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">☁️</span><span class="sector-name">Cloud Infrastructure</span><span class="demand-badge demand-medium">MEDIUM</span></div>
+          <p class="sector-desc">Multiplayer backend engineers who've scaled live-service games to millions of concurrent users understand distributed systems at a practical, battle-tested level.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Live-service backend scaling</span><span class="arrow">→</span><span class="industry-term">Cloud-native distributed systems</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Optimized rendering loop to maintain 60fps on console hardware."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Delivered deterministic real-time performance on resource-constrained hardware with a 16ms frame budget, achieving zero frame drops under peak load — directly transferable to safety-critical embedded and low-latency financial systems."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRAPHICS -->
+    <div id="content-graphics" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">🎨</div>
+        <div class="skill-header-text">
+          <h2>Graphics & Visual Computing</h2>
+          <p>GPU programming, rendering pipelines, and shader expertise are directly applicable across any field that processes visual data — from medical imaging to AI model training infrastructure.</p>
+          <div class="tools-row">
+            <span class="tool-tag">HLSL / GLSL</span><span class="tool-tag">Vulkan</span><span class="tool-tag">DirectX</span><span class="tool-tag">Metal</span><span class="tool-tag">CUDA</span><span class="tool-tag">Unreal / Unity</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🤖</span><span class="sector-name">AI / ML Infrastructure</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Deep understanding of GPU architecture, memory bandwidth, and parallel computation is core to training and deploying large models efficiently.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Shader programming / GPGPU</span><span class="arrow">→</span><span class="industry-term">CUDA kernels / ML accelerator ops</span></div>
+            <div class="translation-pair"><span class="gaming-term">Texture streaming</span><span class="arrow">→</span><span class="industry-term">Memory-efficient data pipelines</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🩺</span><span class="sector-name">Medical Imaging</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">MRI, CT scan, and pathology visualization require real-time 3D rendering of volumetric data — the same domain as game engine rendering engineers.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Volume rendering / LOD systems</span><span class="arrow">→</span><span class="industry-term">Radiology visualization / DICOM</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">👁️</span><span class="sector-name">Computer Vision</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Graphics engineers who understand the camera model, depth buffers, and scene representation have a natural bridge into CV systems for robotics and AR.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Rendering pipeline / G-buffer</span><span class="arrow">→</span><span class="industry-term">Visual perception pipeline</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🏗️</span><span class="sector-name">Architecture & Digital Twins</span><span class="demand-badge demand-emerging">EMERGING</span></div>
+          <p class="sector-desc">Unreal Engine is now deployed by architecture firms and urban planners worldwide. Game world-building translates directly to digital twin creation.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Game world / level building</span><span class="arrow">→</span><span class="industry-term">Digital twin / BIM visualization</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Wrote custom shaders for a AAA game's water rendering system."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Developed GPU-accelerated real-time rendering pipelines using HLSL; expertise directly applicable to medical visualization, AI accelerator optimization, and computer vision preprocessing."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHYSICS -->
+    <div id="content-physics" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">🔬</div>
+        <div class="skill-header-text">
+          <h2>Physics & Simulation</h2>
+          <p>Game physics engines are essentially industrial simulators. Rigid body dynamics, fluid simulation, and constraint solvers are used across aerospace, automotive, and scientific research — often in the same codebases.</p>
+          <div class="tools-row">
+            <span class="tool-tag">PhysX</span><span class="tool-tag">Havok</span><span class="tool-tag">Bullet</span><span class="tool-tag">Chaos Physics</span><span class="tool-tag">numerical methods</span><span class="tool-tag">rigid/soft body dynamics</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">✈️</span><span class="sector-name">Aerospace & Defense</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Flight simulators, structural stress analysis, and vehicle dynamics modeling are direct applications. Boeing and Lockheed use Unreal Engine for training simulations.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Flight physics / vehicle simulation</span><span class="arrow">→</span><span class="industry-term">CFD / flight dynamics modeling</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🏭</span><span class="sector-name">Industrial Simulation</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Factory automation, robotic motion planning, and safety training use physics simulation for virtual commissioning — reducing costly physical prototyping.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Ragdoll / inverse kinematics</span><span class="arrow">→</span><span class="industry-term">Robotic motion planning / IK solvers</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🧬</span><span class="sector-name">Scientific Computing</span><span class="demand-badge demand-medium">MEDIUM</span></div>
+          <p class="sector-desc">Molecular dynamics, climate modeling, and particle physics simulations share mathematical foundations with game physics — especially in numerical integration.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Particle systems / fluid sim</span><span class="arrow">→</span><span class="industry-term">N-body / CFD scientific simulation</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Implemented vehicle physics for an open-world racing game."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Engineered real-time vehicle dynamics system using constraint-based rigid body simulation; foundation directly applicable to automotive ADAS testing environments and aerospace flight simulation."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div id="content-ai" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">🧠</div>
+        <div class="skill-header-text">
+          <h2>AI & Behavior Systems</h2>
+          <p>Game developers have been building practical AI for decades before the ML hype cycle. Pathfinding, behavior trees, and goal-oriented action planning are real engineering disciplines that underpin modern AI applications.</p>
+          <div class="tools-row">
+            <span class="tool-tag">A* / pathfinding</span><span class="tool-tag">behavior trees</span><span class="tool-tag">FSMs</span><span class="tool-tag">GOAP</span><span class="tool-tag">reinforcement learning</span><span class="tool-tag">agent systems</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🦾</span><span class="sector-name">Robotics</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Navigation, obstacle avoidance, and task planning in robotics are nearly identical to NPC AI in games — just with real-world sensors instead of game world data.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">NPC pathfinding / steering</span><span class="arrow">→</span><span class="industry-term">Autonomous navigation / motion planning</span></div>
+            <div class="translation-pair"><span class="gaming-term">Behavior trees</span><span class="arrow">→</span><span class="industry-term">Robot task planning frameworks</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🤖</span><span class="sector-name">ML Engineering</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Game AI engineers who worked with reinforcement learning (e.g., OpenAI Five, AlphaStar) are direct candidates for RL research and applied ML teams at tech companies.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">RL-trained game agents</span><span class="arrow">→</span><span class="industry-term">Applied reinforcement learning</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">📱</span><span class="sector-name">App Personalization</span><span class="demand-badge demand-medium">MEDIUM</span></div>
+          <p class="sector-desc">Game designers who built adaptive difficulty and personalized content systems understand user modeling and recommendation logic at a practical level.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Dynamic difficulty adjustment</span><span class="arrow">→</span><span class="industry-term">Personalization / recommendation engines</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Built NPC AI using behavior trees and A* pathfinding for a tactical shooter."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Designed and implemented hierarchical agent decision systems (behavior trees, goal-oriented planning) and real-time pathfinding at scale — directly applicable to autonomous systems, robotics navigation, and ML agent frameworks."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEMS -->
+    <div id="content-systems" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">⚙️</div>
+        <div class="skill-header-text">
+          <h2>Systems & Economy Design</h2>
+          <p>Game designers who built progression systems and virtual economies have applied expertise in behavioral economics, UX psychology, and complex systems modeling — skills that transfer directly into product, fintech, and health tech.</p>
+          <div class="tools-row">
+            <span class="tool-tag">systems thinking</span><span class="tool-tag">economy modeling</span><span class="tool-tag">balance tuning</span><span class="tool-tag">engagement loops</span><span class="tool-tag">data-driven design</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">💰</span><span class="sector-name">Fintech & Banking</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Virtual economies are real economics. Designers who've managed inflation, liquidity, and player incentives in live-service games understand financial modeling at a behavioral level.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Virtual economy management</span><span class="arrow">→</span><span class="industry-term">Financial product modeling</span></div>
+            <div class="translation-pair"><span class="gaming-term">Reward / loot systems</span><span class="arrow">→</span><span class="industry-term">Behavioral incentive design</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🎓</span><span class="sector-name">EdTech</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Learning progression, mastery curves, and feedback loops in educational platforms are directly borrowed from game design. Duolingo, Khan Academy, and Coursera hire for this.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">XP / progression systems</span><span class="arrow">→</span><span class="industry-term">Learning path design / mastery modeling</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🏥</span><span class="sector-name">Digital Health</span><span class="demand-badge demand-emerging">EMERGING</span></div>
+          <p class="sector-desc">Habit formation apps, chronic disease management tools, and mental health platforms use engagement mechanics from gaming to drive adherence and sustained behavior change.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Habit loop / daily quest design</span><span class="arrow">→</span><span class="industry-term">Patient engagement / adherence design</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Designed the progression and monetization economy for a mobile F2P game with 2M DAU."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Architected a virtual economy and behavioral incentive system for a 2M DAU product, managing inflation control, reward schedules, and long-term retention — translatable to financial product design, subscription models, and digital health engagement platforms."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOLS -->
+    <div id="content-tools" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">🛠️</div>
+        <div class="skill-header-text">
+          <h2>Tools & Pipeline Engineering</h2>
+          <p>Game studios build massive internal tooling ecosystems — editors, asset pipelines, build systems, and automation infrastructure. This is DevOps, platform engineering, and developer experience in disguise.</p>
+          <div class="tools-row">
+            <span class="tool-tag">CI/CD</span><span class="tool-tag">build systems</span><span class="tool-tag">Python/Lua scripting</span><span class="tool-tag">asset management</span><span class="tool-tag">Perforce / Git</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🔧</span><span class="sector-name">DevOps / Platform Engineering</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Tools engineers who managed massive codebases, automated build pipelines, and maintained internal editors are immediately employable as platform engineers in any tech company.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Build pipeline / cook system</span><span class="arrow">→</span><span class="industry-term">CI/CD pipeline engineering</span></div>
+            <div class="translation-pair"><span class="gaming-term">Asset pipeline automation</span><span class="arrow">→</span><span class="industry-term">Data/ML pipeline infrastructure</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🧑‍💻</span><span class="sector-name">Developer Experience (DevEx)</span><span class="demand-badge demand-emerging">EMERGING</span></div>
+          <p class="sector-desc">Game tools engineers understand the craft of building internal products used daily by hundreds of developers — the same job as DevEx and internal tooling teams at Big Tech.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Level editor / in-engine tooling</span><span class="arrow">→</span><span class="industry-term">Internal developer tooling / IDE plugins</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Built and maintained the internal level editor and content pipeline for a AAA studio."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Engineered internal developer tooling used daily by 80+ engineers, including automated content build pipelines and a custom editor — equivalent to platform engineering and DevEx roles at scale."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QA -->
+    <div id="content-qa" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">🔍</div>
+        <div class="skill-header-text">
+          <h2>QA & Testing</h2>
+          <p>Game QA is among the most demanding testing disciplines that exists — validating enormous, non-deterministic systems with millions of potential states across dozens of platforms, under hard launch deadlines.</p>
+          <div class="tools-row">
+            <span class="tool-tag">regression testing</span><span class="tool-tag">test automation</span><span class="tool-tag">edge case analysis</span><span class="tool-tag">bug tracking</span><span class="tool-tag">platform certification</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🏥</span><span class="sector-name">Medical Device Software</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">FDA-regulated software requires exhaustive validation documentation and edge case coverage. Game QA engineers already operate at this standard — they just need to learn the regulatory vocabulary.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Platform certification (TRC/TCR)</span><span class="arrow">→</span><span class="industry-term">Regulatory validation (IEC 62304 / FDA)</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">✈️</span><span class="sector-name">Aerospace Safety-Critical</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">DO-178C avionics certification demands the same systematic edge case coverage and traceability that Sony/Microsoft require for first-party game certification.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Submission testing / bug triage</span><span class="arrow">→</span><span class="industry-term">Safety assurance / formal verification</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🛡️</span><span class="sector-name">Cybersecurity</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Penetration testing and security QA require the same mindset as game QA: find every unexpected path, probe every boundary, think like an adversary.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Exploit/glitch hunting</span><span class="arrow">→</span><span class="industry-term">Penetration testing / red teaming</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Led QA team for a AAA title across 6 platform configurations, managed 1,200 bug reports at launch."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Led structured validation of a complex non-deterministic software system across 6 platform configurations, managing 1,200+ tracked defects through full regression cycles to certification standard — methodology directly applicable to regulated software environments (medical, aerospace, fintech)."</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTION -->
+    <div id="content-prod" class="content-area">
+      <div class="skill-header">
+        <div class="skill-emoji-large">🗂️</div>
+        <div class="skill-header-text">
+          <h2>Production & Team Leadership</h2>
+          <p>Shipping a AAA game means coordinating hundreds of people across engineering, art, narrative, audio, QA, and marketing — with fixed external deadlines. That is project management at extreme difficulty.</p>
+          <div class="tools-row">
+            <span class="tool-tag">Agile / Scrum</span><span class="tool-tag">milestone planning</span><span class="tool-tag">risk management</span><span class="tool-tag">Jira / Shotgrid</span><span class="tool-tag">stakeholder comms</span>
+          </div>
+        </div>
+      </div>
+      <div class="sectors-label">Destination sectors</div>
+      <div class="sectors-grid">
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">📊</span><span class="sector-name">Technical Program Management</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">TPMs at Big Tech are essentially game producers with different vocabulary. The scope, complexity, and multi-team coordination required is nearly identical — and the comp is significantly higher.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Gold milestone / ship date</span><span class="arrow">→</span><span class="industry-term">Launch readiness / go-live</span></div>
+            <div class="translation-pair"><span class="gaming-term">Production pipeline management</span><span class="arrow">→</span><span class="industry-term">Technical program management</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🌐</span><span class="sector-name">SaaS Product Management</span><span class="demand-badge demand-high">HIGH</span></div>
+          <p class="sector-desc">Live-service game producers who managed ongoing feature releases, player feedback loops, and KPI dashboards are naturally suited for SaaS PM roles.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Live-service season / patch cycle</span><span class="arrow">→</span><span class="industry-term">Product release cycle / sprint planning</span></div>
+          </div>
+        </div>
+        <div class="sector-card">
+          <div class="sector-top"><span class="sector-icon">🎬</span><span class="sector-name">Media & Film Tech</span><span class="demand-badge demand-medium">MEDIUM</span></div>
+          <p class="sector-desc">VFX studios, streaming platforms, and interactive media companies face the same production challenges as game studios — and actively recruit from the gaming industry.</p>
+          <div class="translation-box">
+            <div class="translation-label">Language Translation</div>
+            <div class="translation-pair"><span class="gaming-term">Game production / live ops</span><span class="arrow">→</span><span class="industry-term">Content production / platform operations</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cv-tip-section">
+        <h3>✍️ CV Reframe Example</h3>
+        <div class="cv-tip">
+          <div class="cv-tip-before"><span>Before</span><span>"Produced a AAA open-world title with a 200-person team over 4 years."</span></div>
+          <div class="cv-tip-after"><span>After</span><span>"Delivered a 4-year, 200-person cross-functional software product on a hard external deadline, coordinating 12 disciplines from pre-production to global launch — equivalent scope to Senior TPM or Director of Program Management roles in enterprise tech."</span></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+  <strong>Anacaona Women in Tech</strong><br>
+  Connecting non-traditional tech talent with opportunities in Gaming and Big Tech.<br>
+  <a href="index.html" style="color: var(--muted); text-decoration: none; font-size:11px; letter-spacing:0.08em;">← Back to main site</a>
+</footer>
+
+<script>
+  function showSkill(id) {
+    document.getElementById('welcome').style.display = 'none';
+    document.querySelectorAll('.content-area').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.skill-btn').forEach(el => el.classList.remove('active'));
+    const content = document.getElementById('content-' + id);
+    const btn = document.getElementById('btn-' + id);
+    if (content) content.classList.add('active');
+    if (btn) btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
