@@ -574,15 +574,19 @@
   </p>
 
   <div class="cta-group">
-    <a href="https://www.linkedin.com/groups/19386039" target="_blank" class="btn-primary">
-      <span data-en class="inline">Join the Community</span>
-      <span data-es class="inline">Únete a la Comunidad</span>
+    <a href="https://discord.gg/B6kfr9fGbY" target="_blank" rel="noopener" class="btn-primary">
+      <span data-en class="inline">Join the Community (Discord)</span>
+      <span data-es class="inline">Únete a la Comunidad (Discord)</span>
     </a>
     <a href="#resources" class="btn-outline">
       <span data-en class="inline">Explore Resources</span>
       <span data-es class="inline">Ver Recursos</span>
     </a>
   </div>
+  <p style="margin-top:18px;font-size:0.85rem;opacity:0.75">
+    <span data-en class="inline">Also on <a href="https://www.linkedin.com/groups/19386039" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">LinkedIn</a> (requires a LinkedIn account).</span>
+    <span data-es class="inline">También en <a href="https://www.linkedin.com/groups/19386039" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">LinkedIn</a> (requiere cuenta de LinkedIn).</span>
+  </p>
 </div>
 
 <!-- Stats -->
@@ -905,68 +909,6 @@
   </div>
 </section>
 
-<!-- APIs Section -->
-<section id="apis">
-  <div class="container">
-    <p class="section-label">
-      <span data-en class="inline">Public APIs · Coming Soon</span>
-      <span data-es class="inline">APIs Públicas · Próximamente</span>
-    </p>
-
-    <h2 class="section-title">
-      <span data-en>Tools we're building in.</span>
-      <span data-es>Herramientas que estamos integrando.</span>
-    </h2>
-
-    <div class="divider"></div>
-
-    <p class="section-body" style="margin-bottom:40px">
-      <span data-en>These integrations are in progress. They will power live job feeds, learning paths, and community tools directly on this site.</span>
-      <span data-es>Estas integraciones están en desarrollo. Alimentarán ofertas de empleo en tiempo real, rutas de aprendizaje y herramientas de comunidad directamente en este sitio.</span>
-    </p>
-
-    <div class="resources-grid">
-
-      <div class="resource-card" style="opacity:0.6;cursor:default">
-        <span class="resource-tag tag-api">API · Próximo</span>
-        <h4 data-en>LinkedIn Jobs API</h4>
-        <h4 data-es>API LinkedIn Jobs</h4>
-        <p data-en>Live curated job listings filtered for non-traditional tech profiles — directly on this page.</p>
-        <p data-es>Ofertas de empleo en tiempo real filtradas para perfiles no tradicionales — directamente en esta página.</p>
-        <div class="resource-arrow" style="color:var(--muted)">In progress →</div>
-      </div>
-
-      <div class="resource-card" style="opacity:0.6;cursor:default">
-        <span class="resource-tag tag-api">API · Próximo</span>
-        <h4 data-en>Coursera Catalog API</h4>
-        <h4 data-es>API Catálogo Coursera</h4>
-        <p data-en>Dynamic course recommendations based on your tech track — pulled live from Coursera's catalog.</p>
-        <p data-es>Recomendaciones de cursos dinámicas según tu perfil técnico — extraídas en vivo del catálogo de Coursera.</p>
-        <div class="resource-arrow" style="color:var(--muted)">In progress →</div>
-      </div>
-
-      <div class="resource-card" style="opacity:0.6;cursor:default">
-        <span class="resource-tag tag-api">API · Próximo</span>
-        <h4 data-en>GitHub Jobs / Remotive</h4>
-        <h4 data-es>GitHub Jobs / Remotive</h4>
-        <p data-en>Remote-first tech job feed for contractor and full-remote opportunities worldwide.</p>
-        <p data-es>Feed de empleos tech en remoto para oportunidades contractor y full-remote en todo el mundo.</p>
-        <div class="resource-arrow" style="color:var(--muted)">In progress →</div>
-      </div>
-
-      <div class="resource-card" style="opacity:0.6;cursor:default">
-        <span class="resource-tag tag-api">API · Próximo</span>
-        <h4 data-en>Community Feed</h4>
-        <h4 data-es>Feed de Comunidad</h4>
-        <p data-en>Live activity from the Anacaona LinkedIn group — wins, opportunities, and member spotlights.</p>
-        <p data-es>Actividad en vivo del grupo de LinkedIn de Anacaona — logros, oportunidades y destacadas de la comunidad.</p>
-        <div class="resource-arrow" style="color:var(--muted)">In progress →</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- Form CTA -->
 <section>
   <div class="container">
@@ -1002,8 +944,8 @@
   <span data-es>Comunidad creada el 4 de junio de 2026 · <em>Arraigadas en Resiliencia. Conectadas al Futuro.</em></span>
   <br>
   <span style="font-size:0.75rem">
-    <span data-en class="inline">Nonprofit association registered in Spain's National Register of Associations (national no. 634017) · Tax ID (NIF) G93753507 · Registered office: <span class="addr"></span>, Spain</span>
-    <span data-es class="inline">Asociación sin ánimo de lucro inscrita en el Registro Nacional de Asociaciones (n.º nacional 634017) · NIF G93753507 · Domicilio social: <span class="addr"></span>, España</span>
+    <span data-en class="inline">Nonprofit association registered in Spain's National Register of Associations (national no. 634017) · Tax ID (NIF) G93753507 · Registered office: Calle Las Flores 5, 1D, 06010 Badajoz, Spain</span>
+    <span data-es class="inline">Asociación sin ánimo de lucro inscrita en el Registro Nacional de Asociaciones (n.º nacional 634017) · NIF G93753507 · Domicilio social: Calle Las Flores 5, 1D, 06010 Badajoz, España</span>
   </span>
   <br><br>
   <span style="font-size:0.75rem">
@@ -1020,12 +962,6 @@
     document.documentElement.lang = lang;
   }
 
-  // Assemble registered-office text at load (kept out of plain-text source to deter scrapers)
-  (function () {
-    var parts = ['RDEgLDUgc2Vyb2xGIHNhTCBlbGxhQw==', 'em9qYWRhQiAwMTA2MA=='];
-    var text = parts.map(function (p) { return atob(p).split('').reverse().join(''); }).join(', ');
-    document.querySelectorAll('.addr').forEach(function (el) { el.textContent = text; });
-  })();
 
   // Detect browser language on load
   const browserLang = navigator.language.startsWith('es') ? 'es' : 'en';
